@@ -28,6 +28,7 @@
 #include <SFML/Window/Context.h>
 #include <SFML/Window/ContextStruct.h>
 #include <SFML/Internal.h>
+#include <SFML/Window/ContextSettingsInternal.h>
 
 
 ////////////////////////////////////////////////////////////
@@ -45,7 +46,19 @@ void sfContext_destroy(sfContext* context)
 
 
 ////////////////////////////////////////////////////////////
-void sfContext_setActive(sfContext* context, sfBool active)
+sfBool sfContext_setActive(sfContext* context, sfBool active)
 {
-    CSFML_CALL(context, setActive(active == sfTrue));
+    CSFML_CALL_RETURN(context, setActive(active == sfTrue), false)
+}
+
+////////////////////////////////////////////////////////////
+sfContextSettings sfContext_getSettings(const sfContext* context)
+{
+    sfContextSettings settings = priv::sfContextSettings_null();
+    CSFML_CHECK_RETURN(context, settings);
+
+    const sf::ContextSettings& params = context->This.getSettings();
+    priv::sfContextSettings_readFromCpp(params, settings);
+
+    return settings;
 }

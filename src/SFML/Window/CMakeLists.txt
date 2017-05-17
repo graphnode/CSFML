@@ -6,6 +6,7 @@ set(SRCROOT ${CMAKE_SOURCE_DIR}/src/SFML/Window)
 set(SRC
     ${INCROOT}/Export.h
     ${SRCROOT}/Context.cpp
+    ${SRCROOT}/ContextSettingsInternal.h
     ${SRCROOT}/ContextStruct.h
     ${INCROOT}/Context.h
     ${INCROOT}/Event.h
